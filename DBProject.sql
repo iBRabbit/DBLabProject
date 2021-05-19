@@ -42,7 +42,7 @@ CREATE TABLE [Database](
 	
 	CONSTRAINT PK_Database PRIMARY KEY(DatabaseID),
 	CONSTRAINT FK_Database FOREIGN KEY(DBMSSoftwareID) REFERENCES DBMSSoftware,
-	CONSTRAINT Check_DB_ID CHECK(DBMSSoftwareID LIKE 'DB[0-9][0-9][0-9]'),
+	CONSTRAINT Check_DB_ID CHECK(DatabaseID LIKE 'DB[0-9][0-9][0-9]'),
 	CONSTRAINT Check_DB_Storage CHECK(Storage > 0)
 )
 GO
@@ -57,21 +57,18 @@ CREATE TABLE Operating_System (
 	CONSTRAINT Check_OSID CHECK(OperatingSystemID LIKE 'OS[0-9][0-9][0-9]'),
 	CONSTRAINT Check_OSPrice CHECK (Price >= 500000 AND Price <= 1500000)
 )
-
 GO
 
 CREATE TABLE Processor(
 	ProcessorID		CHAR(5) NOT NULL,
 	[Name]			VARCHAR(255),
 	Cores			INTEGER,
-	BaseClockSpeed	INTEGER,
-	BoostClockSpeed	INTEGER
+	BaseClockSpeed	FLOAT,
+	BoostClockSpeed	FLOAT
 
 	CONSTRAINT PK_Processor PRIMARY KEY(ProcessorID),
 	CONSTRAINT Check_ProcessorID CHECK(ProcessorID LIKE 'PR[0-9][0-9][0-9]')
-
 )
-
 GO
 
 CREATE TABLE [Server](
@@ -119,11 +116,11 @@ CREATE TABLE [Transaction](
 	CONSTRAINT FK_Transaction4 FOREIGN KEY (ServerID) REFERENCES [Server],
 	CONSTRAINT Check_TransactionID CHECK(TransactionID LIKE 'TR[0-9][0-9][0-9]')
 )
+GO
 
 -- PROCEDURES --
 CREATE PROCEDURE Input_Customer @customer_id char(5), @name varchar(255), @email varchar(255), @address varchar(255), @date_of_birth date, @gender varchar(255), @phone_number varchar(255), @password varchar(255)
 	as INSERT INTO Customer VALUES(@customer_id, @name , @email , @address , @date_of_birth, @gender, @phone_number ,@password, 0)
-
 GO
 
 -- PROCEDURES --
@@ -131,12 +128,22 @@ GO
 ---- DROPS --
 --DROP TABLE Customer
 --DROP TABLE [Transaction]
+--DROP TABLE [Database]
 --DROP PROCEDURE Input_Customer
 --DROP TABLE DBMSSoftware
+--DROP TABLE Processor
+--DROP TABLE [Server]
 ---- DROPS --
 
 ---- SELECTS --
-select * from Customer
+--select * from Customer
+--select * from DBMSSoftware
+--select * from [Database]
+--select * from Operating_System
+--select * from Cloud_Provider
+--select * from [Transaction]
+--select * from Processor
+--select * from [Server]
 --SELECT LEN(PhoneNumber) FROM Customer
 ---- SELECTS --
 
