@@ -9,7 +9,7 @@ CREATE TABLE Customer (
 	[Name]			VARCHAR(255),
 	Email			VARCHAR(255),
 	[Address]		VARCHAR(255),
-	Date_of_Birth	VARCHAR(255),
+	Date_of_Birth	DATE,
 	Gender			VARCHAR(255),
 	PhoneNumber		VARCHAR(255),
 	[Password]		VARCHAR(255),
@@ -68,7 +68,9 @@ CREATE TABLE Processor(
 
 	CONSTRAINT PK_Processor PRIMARY KEY(ProcessorID),
 	CONSTRAINT Check_ProcessorID CHECK(ProcessorID LIKE 'PR[0-9][0-9][0-9]')
+
 )
+
 GO
 
 CREATE TABLE [Server](
@@ -81,8 +83,8 @@ CREATE TABLE [Server](
 	Storage				INTEGER
 
 	CONSTRAINT PK_Server PRIMARY KEY(ServerID),
-	CONSTRAINT FK_Server1 FOREIGN KEY(ProcessorID) REFERENCES Processor,
-	CONSTRAINT FK_Server2 FOREIGN KEY(OperatingSystemID) REFERENCES Operating_System,
+	CONSTRAINT FK_ServerProcessor FOREIGN KEY(ProcessorID) REFERENCES Processor,
+	CONSTRAINT FK_ServerOS FOREIGN KEY(OperatingSystemID) REFERENCES Operating_System,
 	CONSTRAINT Check_ServerID CHECK(ServerID LIKE 'SV[0-9][0-9][0-9]'),
 	CONSTRAINT Check_ServerMemory CHECK(Memory % 2 = 0),
 	CONSTRAINT Check_ServerPrice CHECK(Price >= 10000 AND Price <= 300000)
@@ -101,50 +103,49 @@ CREATE TABLE Cloud_Provider(
 )	
 GO
 
-CREATE TABLE [Transaction](
+CREATE TABLE HeaderTransaction(
 	TransactionID	CHAR(5) NOT NULL,
 	CustomerID		CHAR(5) NOT NULL,
 	CloudProviderID	CHAR(5) NOT NULL,
 	DatabaseID		CHAR(5) NOT NULL,
 	ServerID		CHAR(5) NOT NULL,
-	PaymentDate		DATE
 	
 	CONSTRAINT PK_Transaction PRIMARY KEY (TransactionID),
-	CONSTRAINT FK_Transaction1 FOREIGN KEY (CustomerID) REFERENCES Customer,
-	CONSTRAINT FK_Transaction2 FOREIGN KEY (CloudProviderID) REFERENCES Cloud_Provider,
-	CONSTRAINT FK_Transaction3 FOREIGN KEY (DatabaseID) REFERENCES [Database],
-	CONSTRAINT FK_Transaction4 FOREIGN KEY (ServerID) REFERENCES [Server],
+	CONSTRAINT FK_TransactionCustomer FOREIGN KEY (CustomerID) REFERENCES Customer,
+	CONSTRAINT FK_TransactionCloudProvider FOREIGN KEY (CloudProviderID) REFERENCES Cloud_Provider,
+	CONSTRAINT FK_TransactionDatabase FOREIGN KEY (DatabaseID) REFERENCES [Database],
+	CONSTRAINT FK_TransactionServer FOREIGN KEY (ServerID) REFERENCES [Server],
 	CONSTRAINT Check_TransactionID CHECK(TransactionID LIKE 'TR[0-9][0-9][0-9]')
+)	
+GO
+
+CREATE TABLE DetailTransaction(
+	TransactionID 	CHAR(5) NOT NULL,
+	CustomerID		CHAR(5) NOT NULL,
+	PaymentDate		DATE,
+
+	CONSTRAINT PK_DetailTransaction PRIMARY KEY (TransactionID, CustomerID),
+	CONSTRAINT FK_DetailTransactionHeader FOREIGN KEY (TransactionID) REFERENCES HeaderTransaction,
+	CONSTRAINT FK_DetailTransactionPayment FOREIGN KEY (CustomerID) REFERENCES Customer
 )
 GO
 
 -- PROCEDURES --
 CREATE PROCEDURE Input_Customer @customer_id char(5), @name varchar(255), @email varchar(255), @address varchar(255), @date_of_birth date, @gender varchar(255), @phone_number varchar(255), @password varchar(255)
 	as INSERT INTO Customer VALUES(@customer_id, @name , @email , @address , @date_of_birth, @gender, @phone_number ,@password, 0)
+
 GO
 
 -- PROCEDURES --
 
 ---- DROPS --
 --DROP TABLE Customer
---DROP TABLE [Transaction]
---DROP TABLE [Database]
 --DROP PROCEDURE Input_Customer
 --DROP TABLE DBMSSoftware
---DROP TABLE Processor
---DROP TABLE [Server]
 ---- DROPS --
 
 ---- SELECTS --
 --select * from Customer
---select * from DBMSSoftware
---select * from [Database]
---select * from Operating_System
---select * from Cloud_Provider
---select * from [Transaction]
---select * from Processor
---select * from [Server]
 --SELECT LEN(PhoneNumber) FROM Customer
 ---- SELECTS --
 
---DROP DATABASE DBProject
