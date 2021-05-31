@@ -37,8 +37,8 @@ GO
 CREATE TABLE [Database](
 	DatabaseID			CHAR(5)		NOT NULL,
 	DBMSSoftwareID		CHAR(5)		NOT NULL,
-	Storage				INT,
-	Price				INT
+	Storage				INTEGER,
+	Price				INTEGER
 	
 	CONSTRAINT PK_Database PRIMARY KEY(DatabaseID),
 	CONSTRAINT FK_Database FOREIGN KEY(DBMSSoftwareID) REFERENCES DBMSSoftware,
@@ -68,7 +68,6 @@ CREATE TABLE Processor(
 
 	CONSTRAINT PK_Processor PRIMARY KEY(ProcessorID),
 	CONSTRAINT Check_ProcessorID CHECK(ProcessorID LIKE 'PR[0-9][0-9][0-9]')
-
 )
 
 GO
