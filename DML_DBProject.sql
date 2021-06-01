@@ -18,21 +18,21 @@ exec Input_Customer 'CU015', 'Indra Gazali', 'indra.gazali@binus.ac.id', 'Ancol'
 GO
 
 insert into DBMSSoftware VALUES
-('DS001', 'MichaelSoft SQL Server Managing Studios', 'www.michaelsoftssms.com'),
-('DS002', 'Oraclee ourSQL', 'www.oursql.com'),
-('DS003', 'Veetas SQL Worksheet', 'www.veetasql.com'),
-('DS004', 'Visual Coding Studios', 'www.vcstudios.com'),
-('DS005', 'R Query Server', 'www.rqs.com'),
-('DS006', 'Alvorna Worksheet', 'www.alvorsheets.com'),
-('DS007', 'Mahindi Coding Management', 'www.mahindigement.com'),
-('DS008', 'Numbers Server Studios', 'www.nss.com'),
-('DS009', 'Aria Query Language Studios', 'www.ariaqls.com'),
-('DS010', 'The Server Management Studio', 'www.thesmstudio.com'),
-('DS011', 'Subreme Text', 'www.subremetxt.com'),
-('DS012', 'SUS SQL', 'www.amogusql.com'),
-('DS013', 'Sentul International Coding Worksheet', 'www.sentulintercs.com'),
-('DS014', 'Manda Lika Text', 'www.mltxt.com'),
-('DS015', 'Accountant Works', 'www.accworks.com');
+('DS001', 'MichaelSoft SQL Server Managing Studios', 'https://www.michaelsoftssms.com'),
+('DS002', 'Oraclee ourSQL', 'https://www.oursql.com'),
+('DS003', 'Veetas SQL Worksheet', 'https://www.veetasql.com'),
+('DS004', 'Visual Coding Studios', 'https://www.vcstudios.com'),
+('DS005', 'R Query Server', 'https://www.rqs.com'),
+('DS006', 'Alvorna Worksheet', 'https://www.alvorsheets.com'),
+('DS007', 'Mahindi Coding Management', 'https://www.mahindigement.com'),
+('DS008', 'Numbers Server Studios', 'https://www.nss.com'),
+('DS009', 'Aria Query Language Studios', 'https://www.ariaqls.com'),
+('DS010', 'The Server Management Studio', 'https://www.thesmstudio.com'),
+('DS011', 'Subreme Text', 'https://www.subremetxt.com'),
+('DS012', 'SUS SQL', 'https://www.amogusql.com'),
+('DS013', 'Sentul International Coding Worksheet', 'https://www.sentulintercs.com'),
+('DS014', 'Manda Lika Text', 'https://www.mltxt.com'),
+('DS015', 'Accountant Works', 'https://www.accworks.com');
 GO
 
 INSERT INTO [Database] VALUES
@@ -182,3 +182,6 @@ SELECT * FROM Processor
 SELECT * FROM [Server]
 SELECT * FROM HeaderTransaction
 SELECT * FROM DetailTransaction
+
+-- USE master
+-- DROP DATABASE DBProject
