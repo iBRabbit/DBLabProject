@@ -70,15 +70,3 @@ HAVING COUNT(h.CloudProviderID) > 1
 --5 
 -- 5.	Display Server Initial (obtained from the first five letters of server name, combined with “-“, and combined with the last three letters of server ID in uppercased form), processor name, and server storage for every server storage that is more than maximum storage of all databases and processor cores at least 4.
 
-SELECT
-LEFT(s.Name, 5) + '-' + REVERSE(LEFT(REVERSE(s.ServerID), 3)) as [Server Initial],
-p.Name,
-s.Storage
-FROM HeaderTransaction h
-JOIN [Server] s
-ON s.ServerID = h.ServerID
-JOIN Processor p
-ON p.ProcessorID = s.ProcessorID
-JOIN [Database] db
-ON db.DatabaseID = h.DatabaseID
-WHERE db.Storage >= (SELECT MAX(db.Storage) FROM [Database] db GROUP BY db.Storage) AND p.Cores > 4
